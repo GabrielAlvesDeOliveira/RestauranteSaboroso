@@ -203,95 +203,101 @@
 
     <script src="/js/moment.min.js"></script>
     <script src="/js/hcode-formsave.js"></script>
+    <script src="/js/hcode-grid.js"></script>
+
     <script>
 
-    let formCreate = document.querySelector("#modal-create form")
+      new HcodeGrid({
+        deleteUrl:'/admin/reservations/${data.id}'
+      })
 
-    formCreate.save().then(json=>{
+//     let formCreate = document.querySelector("#modal-create form")
 
-      window.location.reload()
+//     formCreate.save().then(json=>{
 
-    }).catch(err=>{
+//       window.location.reload()
 
-      console.log(err)
+//     }).catch(err=>{
 
-    })
+//       console.log(err)
 
-    let formUpdate = document.querySelector('#modal-update form');
+//     })
 
-    formUpdate.save().then(json=>{
+//     let formUpdate = document.querySelector('#modal-update form');
 
-      window.location.reload()
+//     formUpdate.save().then(json=>{
 
-    }).catch(err=>{
+//       window.location.reload()
 
-    console.log(err)
+//     }).catch(err=>{
 
-    });
+//     console.log(err)
 
-    [...document.querySelectorAll('.btn-delete')].forEach(btn=>{
+//     });
 
-  btn.addEventListener('click', e=>{
+//     [...document.querySelectorAll('.btn-delete')].forEach(btn=>{
+
+//   btn.addEventListener('click', e=>{
 
   
-  let tr = e.composedPath().find(el=>{
-    return (el.tagName.toUpperCase() === 'TR')
-  })
+//   let tr = e.composedPath().find(el=>{
+//     return (el.tagName.toUpperCase() === 'TR')
+//   })
   
-  let data = JSON.parse(tr.dataset.row)
+//   let data = JSON.parse(tr.dataset.row)
 
-  if(confirm('deseja realmente excluir?')){
+//   if(confirm('deseja realmente excluir?')){
 
-    fetch(`/admin/reservations/${data.id}`,{
-      method:"DELETE"
-    })
-    .then(response=> response.json())
-    .then(json=>{
+//     fetch(`/admin/reservations/${data.id}`,{
+//       method:"DELETE"
+//     })
+//     .then(response=> response.json())
+//     .then(json=>{
 
-      window.location.reload()
+//       window.location.reload()
 
-    })
+//     })
 
-  }
+//   }
 
-})
+// })
 
-});
+// });
 
-[...document.querySelectorAll('.btn-update')].forEach(btn =>{
+// [...document.querySelectorAll('.btn-update')].forEach(btn =>{
 
-btn.addEventListener('click', e =>{
+// btn.addEventListener('click', e =>{
   
-  let tr = e.composedPath().find(el=>{
-    return (el.tagName.toUpperCase() === 'TR')
-  })
+//   let tr = e.composedPath().find(el=>{
+//     return (el.tagName.toUpperCase() === 'TR')
+//   })
   
-  let data = JSON.parse(tr.dataset.row)
+//   let data = JSON.parse(tr.dataset.row)
   
-  for(let name in data){
-    let input = formUpdate.querySelector(`[name=${name}]`) 
+//   for(let name in data){
+//     let input = formUpdate.querySelector(`[name=${name}]`) 
     
-    switch(name){
+//     switch(name){
       
-      case 'date':
+//       case 'date':
 
-      if (input) input.value = moment(data[name]).format('YYYY-MM-DD')
+//       if (input) input.value = moment(data[name]).format('YYYY-MM-DD')
 
 
-      break
+//       break
         
-        default:
+//         default:
         
-        if (input) input.value = data[name]
+//         if (input) input.value = data[name]
         
-    }
+//     }
 
-  }
+//   }
 
-  $('#modal-update').modal('show')
+//   $('#modal-update').modal('show')
 
-})
+// })
 
-})
+// })
 
     </script>
