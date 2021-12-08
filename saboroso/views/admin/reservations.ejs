@@ -208,8 +208,24 @@
     <script>
 
       new HcodeGrid({
-        deleteUrl:'/admin/reservations/${data.id}'
-      })
+        deleteUrl:'/admin/reservations/${data.id}',
+        onUpdateLoad: (form,name,data)=>{
+
+        let input = form.querySelector(`[name=${name}]`) 
+
+        switch(name){
+        
+        case 'date':
+        if (input) input.value = moment(data[name]).format('YYYY-MM-DD')
+        break
+        
+        default:
+        if (input) input.value = data[name]
+        }
+
+
+      }
+    })
 
 //     let formCreate = document.querySelector("#modal-create form")
 

@@ -143,23 +143,45 @@
 
     <script src="/js/hcode-filereader.js"></script>
     <script src="/js/hcode-formsave.js"></script>
+    <script src="/js/hcode-grid.js"></script>
 
     <script>
 
     new HcodeFileReader("#modal-create [type=file]", "#modal-create img")
     new HcodeFileReader("#modal-update [type=file]", "#modal-update img")
     
-    let formCreate = document.querySelector("#modal-create form")
+    new HcodeGrid({
+        deleteUrl:'/admin/menus/${data.id}',
+        onUpdateLoad: (form,name,data)=>{
 
-    formCreate.save().then(json=>{
+          let input = form.querySelector(`[name=${name}]`) 
+    
+          switch(name){
 
-      window.location.reload()
+          case 'photo':
+            form.querySelector('img').src = '/' + data[name]
+          break
+    
+          default:
+    
+          if (input) input.value = data[name]
+    
+        }
 
-    }).catch(err=>{
 
-      console.log(err)
+        }
+      })
+    // let formCreate = document.querySelector("#modal-create form")
 
-    })
+    // formCreate.save().then(json=>{
+
+    //   window.location.reload()
+
+    // }).catch(err=>{
+
+    //   console.log(err)
+
+    // })
 
     // formCreate.addEventListener('submit', e=>{
 
@@ -179,80 +201,80 @@
     //   })
     // })
 
-    let formUpdate = document.querySelector('#modal-update form');
+    // let formUpdate = document.querySelector('#modal-update form');
 
-    formUpdate.save().then(json=>{
+    // formUpdate.save().then(json=>{
 
-      window.location.reload()
+    //   window.location.reload()
 
-    }).catch(err=>{
+    // }).catch(err=>{
 
-    console.log(err)
+    // console.log(err)
 
-    });
+    // });
     
-    [...document.querySelectorAll('.btn-delete')].forEach(btn=>{
+    // [...document.querySelectorAll('.btn-delete')].forEach(btn=>{
 
-      btn.addEventListener('click', e=>{
+    //   btn.addEventListener('click', e=>{
 
         
-        let tr = e.composedPath().find(el=>{
-          return (el.tagName.toUpperCase() === 'TR')
-        })
+    //     let tr = e.composedPath().find(el=>{
+    //       return (el.tagName.toUpperCase() === 'TR')
+    //     })
         
-        let data = JSON.parse(tr.dataset.row)
+    //     let data = JSON.parse(tr.dataset.row)
   
-        if(confirm('deseja realmente excluir?')){
+    //     if(confirm('deseja realmente excluir?')){
 
-          fetch(`/admin/menus/${data.id}`,{
-            method:"DELETE"
-          })
-          .then(response=> response.json())
-          .then(json=>{
+    //       fetch(`/admin/menus/${data.id}`,{
+    //         method:"DELETE"
+    //       })
+    //       .then(response=> response.json())
+    //       .then(json=>{
   
-            window.location.reload()
+    //         window.location.reload()
 
-          })
+    //       })
 
-        }
+    //     }
 
-      })
+    //   })
 
-    });
+    // });
 
-    [...document.querySelectorAll('.btn-update')].forEach(btn =>{
+    // [...document.querySelectorAll('.btn-update')].forEach(btn =>{
 
-      btn.addEventListener('click', e =>{
+    //   btn.addEventListener('click', e =>{
         
-        let tr = e.composedPath().find(el=>{
-          return (el.tagName.toUpperCase() === 'TR')
-        })
+    //     let tr = e.composedPath().find(el=>{
+    //       return (el.tagName.toUpperCase() === 'TR')
+    //     })
         
-        let data = JSON.parse(tr.dataset.row)
+    //     let data = JSON.parse(tr.dataset.row)
         
-        for(let name in data){
+    //     for(let name in data){
           
-          switch(name){
+    //       switch(name){
             
-            case 'photo':
+    //         case 'photo':
               
-              formUpdate.querySelector('img').src = '/'+data[name]
+    //           formUpdate.querySelector('img').src = '/'+data[name]
               
-              break;
+    //           break;
               
-              default:
+    //           default:
               
-            let input = formUpdate.querySelector(`[name=${name}]`) 
-              if (input) input.value = data[name]
+    //         let input = formUpdate.querySelector(`[name=${name}]`) 
+    //           if (input) input.value = data[name]
               
-          }
+    //       }
 
-        }
+    //     }
 
-        $('#modal-update').modal('show')
+    //     $('#modal-update').modal('show')
 
-      })
+    //   })
 
-    })
+    // })
 
     </script>
