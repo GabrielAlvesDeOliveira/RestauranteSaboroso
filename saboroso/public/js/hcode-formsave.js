@@ -25,7 +25,7 @@ HTMLFormElement.prototype.save = function(config){
                 
             }).catch(err=>{
 
-                if (typeof config.failure === 'function')config.failure(err)
+                if (typeof config.failure === 'function') config.failure(err)
 
             })
         })

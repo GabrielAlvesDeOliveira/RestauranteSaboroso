@@ -4,6 +4,7 @@ var express = require('express');
 var reservations = require('../inc/reservation')
 var contacts = require('../inc/contacts');
 const { save } = require('../inc/reservation');
+const emails = require('../inc/emails');
 var router = express.Router();
 
 /* GET home page. */
@@ -107,4 +108,19 @@ router.get('/services',function(req,res,next){
   h1: 'E um prazer poder servir!'})
 
 })
+
+router.post('/subscribe', function(req,res,next){
+
+  emails.save(req).then(results=>{
+
+    res.send(results)
+
+  }).catch(err=>{
+    res.send(err)
+  })
+
+  
+
+})
+
 module.exports = router;

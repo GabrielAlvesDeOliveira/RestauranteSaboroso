@@ -48,27 +48,35 @@ class HcodeGrid {
 
         this.formCreate = document.querySelector(this.options.formCreate)
 
-        this.formCreate.save({
-            success:()=>{
-                this.fireEvent('afterFormCreate')
+        if(this.formCreate){ 
 
-            },
-            failure:()=>{
-                this.fireEvent('afterFormCreateError')
-            }
-        })
+            
+            this.formCreate.save({
+                success:()=>{
+                    this.fireEvent('afterFormCreate')
+                    
+                },
+                failure:()=>{
+                    this.fireEvent('afterFormCreateError')
+                }
+            })
+        }
+
        this.formUpdate = document.querySelector(this.options.formUpdate);
 
-        this.formUpdate.save({
-            success: ()=>{
-                this.fireEvent('afterFormUpdate')
+        if(this.formUpdate){
 
-            },
-            failure:()=>{
-                this.fireEvent('afterFormUpdateError')
-
-            }
-        })
+            this.formUpdate.save({
+                success: ()=>{
+                    this.fireEvent('afterFormUpdate')
+                    
+                },
+                failure:()=>{
+                    this.fireEvent('afterFormUpdateError')
+                    
+                }
+            })
+        }
 
     }
 
